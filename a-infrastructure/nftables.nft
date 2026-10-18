@@ -1,0 +1,59 @@
+#!/usr/sbin/nft -f
+flush ruleset
+
+define WAN = "etho"
+define LAN = "eth1"
+define DMZ = "eth2"
+define SIEM = "eth3"
+define SPLUNK = 10.10.40.20
+define WEB01 = 10.10.20.10
+
+define DMZ = "eth2"
+define SIEM = "eth3"
+define SPLUNK = 10.10.40.20
+define WEB01 = 10.10.20.10
+
+table inet filter {
+  chain input {
+    type filter hook input priority 0; policy drop;
+    ct state established,related accept
+    iif lo accept
+    icmp type echo-request accept
+    iifname $WAN udp sport 67 udp dport 68 accept
+    iifname $LAN tcp dport 22 accept
+    iifname $WAN log prefix "FW-WAN-IN-DROP " counter drop
+  }
+  chain forward {
+    type filter hook forward priority 0; policy drop;
+    ct state established,related accept
+
+    iifname $WAN oifname $DMZ ip daddr $WEB01 tcp dport {80,443} ct status dnat accept
+
+    iifname $LAN oifname $WAN tcp dport {53,80,443} accept
+    iifname $LAN oifname $WAN udp dport 53 accept
+    iifname $LAN oifname $DMZ ip daddr $WEB01 tcp dport {80,443} accept
+    iifname $LAN oifname $SIEM ip daddr $SPLUNK tcp dport 9997 accept
+
+    iifname $DMZ oifname $WAN tcp dport {53,80,443} accept
+    iifname $DMZ oifname $WAN udp dport 53 accept
+    iifname $DMZ oifname $SIEM ip daddr $SPLUNK tcp dport 9997 accept
+
+    iifname $SIEM oifname $WAN tcp dport {53,80,443} accept
+    iifname $SIEM oifname $WAN udp dport 53 accept
+    iifname { $LAN, $DMZ, $SIEM } oifname $WAN udp dport 123 accept
+    iifname { $LAN, $DMZ, $SIEM } oifname $WAN tcp dport 4460 accept
+
+    log prefix "FW-DROP " level info counter drop
+  }
+}
+
+table ip nat {
+  chain prerouting {
+    type nat hook prerouting priority dstnat; policy accept;
+    iifname $WAN tcp dport {80,443} dnat to $WEB01
+  }
+  chain postrouting {
+    type nat hook postrouting priority srcnat; policy accept;
+    oifname $WAN masquerade
+  }
+}
