@@ -104,7 +104,7 @@ sudo /opt/splunk/bin/splunk restart
 
 **[HIỆN TƯỢNG]** Splunk có thể báo lỗi khi tìm nạp danh sách ứng dụng từ Splunkbase, do môi trường lab không truy cập Internet hoặc không phân giải được DNS. Ghi chú gốc xác định kết nối Splunkbase hiện chưa cần dùng trong lab.
 
-![alt text](image.png)
+![alt text](images/image.png)
 
 ### 3.1. Kiểm tra log lỗi
 
@@ -169,7 +169,7 @@ sudo /opt/splunk/bin/splunk restart
 
 **[TRÊN GIAO DIỆN WEB]** Mở lại http://10.10.40.20:8000.
 
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 
 ---
 
@@ -254,11 +254,11 @@ sudo /opt/splunk/bin/splunk restart
 
 **[TRÊN GIAO DIỆN WEB — SPLUNK01]** Thực hiện phần **Setup** nhận dữ liệu Universal Forwarder theo các ảnh tham khảo trong ghi chú gốc, dùng cổng **TCP 9997**.
 
-![alt text](image-3.png)
+![alt text](images/image-3.png)
 
-![alt text](image-4.png)
+![alt text](images/image-4.png)
 
-![alt text](image-5.png)
+![alt text](images/image-5.png)
 
 ### 5.2. Kiểm tra cổng 9997
 
@@ -270,7 +270,7 @@ sudo ss -lntp | grep :9997
 
 **[KẾT QUẢ MONG ĐỢI]** Có tiến trình lắng nghe TCP trên cổng `9997`.
 
-![alt text](image-6.png)
+![alt text](images/image-6.png)
 
 ---
 
@@ -439,7 +439,7 @@ index=linux_auth | stats count by host
 
 **[GIẢI THÍCH]** Đếm số sự kiện trong `linux_auth` và nhóm theo host. nhìn thấy `CL01` là đạt.
 
-![alt text](image-7.png)
+![alt text](images/image-7.png)
 
 **[SPL — NHẬP VÀO Ô SEARCH]**
 
@@ -451,7 +451,7 @@ index=linux_auth "sshd"
 
 **[GIẢI THÍCH]** Lọc các sự kiện liên quan đến `sshd`, hiển thị thời gian, host và nội dung log; sắp xếp thời gian giảm dần.
 
-![alt text](image-8.png)
+![alt text](images/image-8.png)
 
 ---
 
@@ -523,7 +523,7 @@ sudo /opt/splunkforwarder/bin/splunk restart
 
 **[GHI CHÚ]** Sau khi chạy, tài liệu gốc ghi nhận UF yêu cầu nhập `admin` và mật khẩu `11223344`.
 
-![alt text](image-9.png)
+![alt text](images/image-9.png)
 
 ---
 
@@ -623,7 +623,7 @@ index=web
 | sort - _time
 ```
 
-![alt text](image-10.png)
+![alt text](images/image-10.png)
 
 ---
 
@@ -683,11 +683,11 @@ sudo systemctl restart rsyslog
 5. Chọn `index`: `firewall`.
 6. Hoàn tất.
 
-![alt text](image-11.png)
+![alt text](images/image-11.png)
 
-![alt text](image-12.png)
+![alt text](images/image-12.png)
 
-![alt text](image-14.png)
+![alt text](images/image-14.png)
 
 **[GIẢI THÍCH — CÁC LỰA CHỌN TRÊN WEB]**
 
@@ -740,7 +740,7 @@ index=firewall
 
 **[KẾT QUẢ MONG ĐỢI]** Có các sự kiện firewall trong `index=firewall`.
 
-![alt text](image-15.png)
+![alt text](images/image-15.png)
 
 ---
 
