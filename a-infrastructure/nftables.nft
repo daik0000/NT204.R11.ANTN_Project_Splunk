@@ -1,7 +1,7 @@
 #!/usr/sbin/nft -f
 flush ruleset
 
-define WAN = "etho"
+define WAN = "eth0"
 define LAN = "eth1"
 define DMZ = "eth2"
 define SIEM = "eth3"
