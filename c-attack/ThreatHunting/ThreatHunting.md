@@ -287,3 +287,19 @@ Sau khi thực hiện threat hunting ta biết được luồng exploit của at
 - Đọc file access log của apache và thấy được internal ip của một máy nhân viên là `10.10.10.11`
 - Thực hiện bruteforce ssh đến máy nhân viên sử dụng credential trong table `users` mà attacker đọc được trong database
 - Sau khi ssh thành công đến `10.10.10.11` thì kết nối đến SMB Server, sử dụng credential trong file `.smbcred` và đọc được file secret `khachhang.csv`
+
+#### Mapping flow exploit với các kỹ thuật MITRE ATT&CK tương ứng 
+
+| # | Attack activity | MITRE ATT&CK ID | Technique | Tactic |
+|---|---|---|---|---|
+| 1 | Exploit command injection tại DVWA `/vulnerabilities/exec/` | T1190 | Exploit Public-Facing Application | Initial Access |
+| 2 | Execute command trên web01 thông qua command injection | T1059.004 | Unix Shell | Execution |
+| 3 | Establish reverse shell đến web01 | T1059.004 | Unix Shell | Execution |
+| 4 | Recon và truy cập MariaDB bằng tài khoản root không có password | T1078.001 | Default Accounts | Initial Access, Persistence, Privilege Escalation, Defense Evasion |
+| 5 | Enumerate và đọc dữ liệu database `dvwa` | T1213 | Data from Information Repositories | Collection |
+| 6 | Đọc Apache access log để xác định internal IP `10.10.10.11` | T1654 | Log Enumeration | Discovery |
+| 7 | Bruteforce SSH sử dụng credential thu thập từ database | T1110.004 | Credential Stuffing | Credential Access |
+| 8 | SSH từ web01 sang máy nhân viên `10.10.10.11` | T1021.004 | SSH | Lateral Movement |
+| 9 | Sử dụng credential trong `.smbcred` để truy cập SMB Server | T1078 | Valid Accounts | Defense Evasion, Persistence, Privilege Escalation, Initial Access |
+| 10 | Kết nối SMB Server | T1021.002 | SMB/Windows Admin Shares | Lateral Movement |
+| 11 | Đọc file `secret_khachhang.csv` trên SMB share | T1039 | Data from Network Shared Drive | Collection |
