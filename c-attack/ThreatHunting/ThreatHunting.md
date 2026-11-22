@@ -19,14 +19,11 @@ kiểm tra theo từng nguồn log.
 
 ### d. Log payload của HTTP POST
 
-Đọc [Hướng dẫn log payload HTTP POST của DVWA](04-web-payload.md). Hướng dẫn
-này được viết dựa trên [log_payload_web.md](../../log_payload_web.md).
+Đọc [Hướng dẫn log payload HTTP POST của DVWA](04-web-payload.md). 
 
 ### e. Log SMB
 
-Đọc [Hướng dẫn bật Samba full audit và index SMB](05-smb-audit.md). Hướng dẫn
-này được viết dựa trên [log_smb.md](../../log_smb.md).
-
+Đọc [Hướng dẫn bật Samba full audit và index SMB](05-smb-audit.md). 
 ## 2. Threat Hunting
 
 ### 2.1. Phát hiện process bất thường của www-data trên WEB01
