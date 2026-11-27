@@ -1,7 +1,6 @@
 # Hướng dẫn d — log payload HTTP POST của DVWA
 
-Hướng dẫn này được xây dựng từ
-[log_payload_web.md](../../log_payload_web.md). Mục tiêu là ghi payload của
+Mục tiêu là ghi payload của
 command injection trước khi thực thi command, đồng thời giữ request ID để
 đối chiếu với auditd.
 

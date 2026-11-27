@@ -1,7 +1,6 @@
 # Hướng dẫn e — bật Samba full audit và index SMB
 
-Hướng dẫn này tóm tắt triển khai thực tế trong
-[log_smb.md](../../log_smb.md). Mục tiêu là ghi user, client, share,
+Mục tiêu là ghi user, client, share,
 operation, result và object khi CL01 truy cập Samba trên SRV01.
 
 ## 1. Cài module và cấu hình Samba trên SRV01
